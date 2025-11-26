@@ -1,1 +1,1415 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <!-- =========================================================
+       MR-Livre | Moda sem rótulos
+       Arquivo único (HTML + CSS + JS) com mais de 1000 linhas.
+       Estrutura pensada para futuro e-commerce: filtros, carrinho,
+       wishlist, comparador, avaliações, políticas e responsividade.
+
+       Autor: Você (MR-Livre). Este é um template expandido.
+       ========================================================= -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MR-Livre | Moda sem rótulos, liberdade e versatilidade</title>
+  <meta name="description" content="MR-Livre: moda sem gênero, liberdade de escolha e peças que vestem pessoas. Do essencial ao conceito, com qualidade, autenticidade e inclusão.">
+  <meta name="theme-color" content="#d4af37">
+  <meta name="author" content="MR-Livre">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.lojamrlivre.com.br/">
+
+  <!-- Open Graph / Social Preview -->
+  <meta property="og:title" content="MR-Livre | Moda sem rótulos">
+  <meta property="og:description" content="Moda sem gênero, do essencial ao conceito. Vista-se como quiser, sem rótulos.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.lojamrlivre.com.br/">
+  <meta property="og:image" content="https://www.lojamrlivre.com.br/og-cover.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="MR-Livre | Moda sem rótulos">
+  <meta name="twitter:description" content="Liberdade de expressão na moda, com peças versáteis e inclusivas.">
+  <meta name="twitter:image" content="https://www.lojamrlivre.com.br/og-cover.png">
+
+  <!-- Fontes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+  <!-- Ícone -->
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+  <!-- CSS principal -->
+  <style>
+    /* =========================================================
+       Paleta e tokens
+       ========================================================= */
+    :root{
+      --gold:#d4af37;
+      --gold-700:#9e7b23;
+      --gold-600:#b58f2c;
+      --gold-500:#c9a435;
+      --gold-300:#ead59a;
+      --gold-100:#fff6df;
+
+      --black:#111111;
+      --white:#ffffff;
+      --gray-050:#fdfdfd;
+      --gray-100:#f7f7f7;
+      --gray-200:#efefef;
+      --gray-300:#e7e7e7;
+      --gray-400:#cfcfcf;
+      --gray-600:#7a7a7a;
+      --gray-800:#333333;
+
+      --radius-12:12px;
+      --radius-14:14px;
+      --radius-18:18px;
+      --radius-24:24px;
+
+      --shadow-1:0 6px 20px rgba(0,0,0,0.08);
+      --shadow-2:0 8px 32px rgba(0,0,0,0.10);
+
+      --space-8:8px;
+      --space-10:10px;
+      --space-12:12px;
+      --space-14:14px;
+      --space-16:16px;
+      --space-18:18px;
+      --space-20:20px;
+      --space-24:24px;
+      --space-30:30px;
+      --space-40:40px;
+      --space-60:60px;
+
+      --maxw:1240px;
+    }
+
+    /* Reset básico */
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      line-height:1.65;
+      color:var(--black);
+      background:var(--white);
+    }
+
+    /* Acessibilidade de foco */
+    :focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+    /* Container geral */
+    .container{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 var(--space-20)}
+
+    /* Header fixo */
+    header{
+      position:sticky;top:0;z-index:100;
+      background:rgba(255,255,255,0.95);
+      backdrop-filter:saturate(140%) blur(6px);
+      border-bottom:1px solid var(--gray-300);
+    }
+    nav{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:var(--space-14) 0;
+    }
+    .brand{display:flex;align-items:center;gap:var(--space-14)}
+    .brand img{height:52px;width:auto}
+    .brand .title{
+      font-family:"Playfair Display", serif;
+      font-weight:700;font-size:1.5rem;letter-spacing:0.3px
+    }
+    .brand .title span{color:var(--gold)}
+    .nav-links{display:flex;gap:var(--space-14);flex-wrap:wrap}
+    .nav-links a{
+      color:var(--black);text-decoration:none;font-weight:600;
+      padding:var(--space-8) var(--space-12);border-radius:var(--radius-12)
+    }
+    .nav-links a:hover{background:var(--gray-100)}
+    .cta{display:flex;gap:var(--space-8)}
+    .btn{
+      border:none;border-radius:var(--radius-12);
+      padding:var(--space-10) var(--space-14);
+      font-weight:600;cursor:pointer;transition:all .18s ease
+    }
+    .btn-outline{background:transparent;border:1.5px solid var(--gold);color:var(--gold)}
+    .btn-outline:hover{background:var(--gold-100)}
+    .btn-solid{background:var(--gold);color:var(--white)}
+    .btn-solid:hover{background:var(--gold-600)}
+
+    /* Barra promocional */
+    .promo-bar{
+      background:linear-gradient(90deg, var(--gold-100), #fff9ec);
+      border-bottom:1px solid var(--gold-300);
+      color:#4a3b10;
+      font-weight:600;
+    }
+    .promo-content{
+      max-width:var(--maxw);margin:0 auto;padding:var(--space-8) var(--space-20);
+      display:flex;justify-content:center;gap:var(--space-12);flex-wrap:wrap
+    }
+    .promo-badge{
+      background:var(--gold-100);
+      border:1px solid var(--gold-300);
+      padding:4px 10px;border-radius:999px;font-size:0.9rem
+    }
+
+    /* Hero */
+    .hero{padding:var(--space-40) 0 var(--space-20)}
+    .hero .panel{
+      border:1.5px solid var(--gold-300);
+      border-radius:var(--radius-24);
+      background:linear-gradient(180deg, var(--white), #fffdf7);
+      padding:var(--space-30);
+      display:grid;grid-template-columns:1.25fr 0.75fr;gap:var(--space-20)
+    }
+    .hero h1{font-family:"Playfair Display", serif;font-size:2.6rem;margin:0}
+    .hero p{color:#222;margin-top:8px}
+    .hero .badges{display:flex;gap:var(--space-10);margin-top:var(--space-16);flex-wrap:wrap}
+    .badge{
+      background:var(--gold-100);color:#4a3b10;
+      border:1px solid var(--gold-300);
+      border-radius:999px;padding:6px 10px;font-size:0.92rem;font-weight:600
+    }
+    .hero .art{
+      border-radius:var(--radius-18);
+      border:1px dashed var(--gold-300);
+      display:flex;align-items:center;justify-content:center;
+      padding:var(--space-14);background:#fffef9
+    }
+    .hero .art img{max-width:100%;height:auto;border-radius:var(--radius-12)}
+
+    /* Seções */
+    section{padding:var(--space-40) 0;border-top:1px solid var(--gray-300)}
+    section:first-of-type{border-top:none}
+    h2{font-family:"Playfair Display", serif;font-size:1.9rem;margin:0 0 8px}
+    .sub{color:var(--gray-600);margin-bottom:var(--space-18)}
+
+    /* Grade de produtos */
+    .grid{display:grid;grid-template-columns:repeat(3, 1fr);gap:var(--space-18)}
+    .card{
+      border:1px solid var(--gray-300);
+      border-radius:var(--radius-18);
+      background:var(--white);
+      padding:var(--space-16);
+      display:flex;flex-direction:column;gap:var(--space-10);
+      box-shadow:var(--shadow-1)
+    }
+    .card h3{margin:0;font-size:1.05rem}
+    .card p{margin:0;color:#222}
+    .card .img{
+      width:100%;height:220px;border-radius:var(--radius-14);
+      background:linear-gradient(180deg, #fff, #fff9ec);
+      border:1px solid var(--gold-300);
+      display:flex;align-items:center;justify-content:center;color:#4a3b10;font-weight:600
+    }
+    .price{font-weight:700;color:var(--black)}
+    .tag{
+      font-size:0.85rem;color:#4a3b10;background:var(--gold-100);
+      border:1px solid var(--gold-300);padding:4px 8px;border-radius:999px;display:inline-block
+    }
+    .card-actions{display:flex;gap:var(--space-10);flex-wrap:wrap}
+
+    /* Filtros e buscas */
+    .filters{
+      display:flex;gap:var(--space-12);flex-wrap:wrap;margin-bottom:var(--space-18)
+    }
+    .input, .select{
+      padding:10px 12px;border:1px solid var(--gray-300);border-radius:var(--radius-12);
+      background:var(--white);color:var(--black)
+    }
+    .select{appearance:none}
+
+    /* Destaques */
+    .feature{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-18)}
+    .feature .box{
+      border:1px solid var(--gold-300);border-radius:var(--radius-18);
+      padding:var(--space-18);background:linear-gradient(180deg, #fff, #fffdf7);
+      box-shadow:var(--shadow-1)
+    }
+
+    /* Tabelas */
+    table{width:100%;border-collapse:collapse;border:1px solid var(--gray-300);border-radius:var(--radius-14);overflow:hidden}
+    th, td{padding:12px;border-bottom:1px solid var(--gray-300);text-align:left}
+    th{background:var(--gold-100);color:#4a3b10}
+    tr:last-child td{border-bottom:none}
+
+    /* Avaliações */
+    .stars{color:#e3b341;font-size:1.2rem}
+    .review{border:1px solid var(--gray-300);border-radius:var(--radius-14);padding:var(--space-12);background:#fff}
+
+    /* Blog cards */
+    .blog-grid{display:grid;grid-template-columns:repeat(3, 1fr);gap:var(--space-18)}
+    .blog-card{border:1px solid var(--gray-300);border-radius:var(--radius-18);padding:var(--space-16);background:#fff}
+    .blog-card h4{margin:0}
+
+    /* Newsletter */
+    .newsletter{
+      border:1px solid var(--gold-300);
+      background:linear-gradient(180deg,#fff,#fffdf7);
+      border-radius:var(--radius-18);
+      padding:var(--space-18);
+    }
+
+    /* Footer */
+    footer{padding:var(--space-30) 0;border-top:1px solid var(--gray-300);background:#fff}
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:var(--space-18)}
+    .foot-title{font-weight:700;margin-bottom:8px}
+    .copyright{margin-top:var(--space-14);color:var(--gray-600);font-size:0.92rem}
+
+    /* Modais */
+    .modal{
+      position:fixed;inset:0;background:rgba(0,0,0,0.38);
+      display:none;align-items:center;justify-content:center;z-index:200
+    }
+    .modal .content{
+      background:#fff;border-radius:var(--radius-18);max-width:680px;width:92%;
+      padding:var(--space-18);box-shadow:var(--shadow-2)
+    }
+
+    /* Carrinho flutuante */
+    #cart{
+      position:fixed;right:18px;bottom:18px;max-width:340px;background:#fff;
+      border:1px solid var(--gold-300);box-shadow:var(--shadow-2);
+      border-radius:var(--radius-18);padding:var(--space-14);
+      display:none;z-index:160
+    }
+    #cart header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;border:none}
+    #cart ul{list-style:none;padding:0;margin:0}
+    #cart li{padding:8px 0;border-bottom:1px solid var(--gold-300)}
+    #cart li:last-child{border-bottom:none}
+
+    /* Wishlist/Compare tags */
+    .small-actions{display:flex;gap:8px;flex-wrap:wrap}
+
+    /* Responsivo */
+    @media (max-width:1024px){
+      .grid{grid-template-columns:1fr 1fr}
+      .feature{grid-template-columns:1fr}
+      .blog-grid{grid-template-columns:1fr 1fr}
+      .footer-grid{grid-template-columns:1fr 1fr 1fr}
+      .hero .panel{grid-template-columns:1fr}
+    }
+    @media (max-width:640px){
+      .nav-links{display:none}
+      .grid{grid-template-columns:1fr}
+      .blog-grid{grid-template-columns:1fr}
+      .footer-grid{grid-template-columns:1fr}
+      .brand .title{font-size:1.25rem}
+      .hero h1{font-size:2.2rem}
+    }
+  </style>
+</head>
+<body>
+  <!-- Barra promocional -->
+  <div class="promo-bar" role="region" aria-label="Promoções atuais">
+    <div class="promo-content">
+      <span class="promo-badge">Frete grátis acima de R$199</span>
+      <span class="promo-badge">Troca fácil em 30 dias</span>
+      <span class="promo-badge">Moda sem rótulos: você escolhe</span>
+    </div>
+  </div>
+
+  <!-- Header e navegação -->
+  <header>
+    <div class="container">
+      <nav aria-label="Navegação principal">
+        <div class="brand">
+          <img src="logo-mr-livre.png" alt="Logo MR-Livre dourada dentro de círculos">
+          <div class="title">MR<span>-Livre</span></div>
+        </div>
+        <div class="nav-links">
+          <a href="#inicio">Início</a>
+          <a href="#essencial">Essencial</a>
+          <a href="#conceito">Conceito</a>
+          <a href="#manifesto">Manifesto</a>
+          <a href="#colecoes">Coleções</a>
+          <a href="#blog">Blog</a>
+          <a href="#politicas">Políticas</a>
+          <a href="#faq">FAQ</a>
+          <a href="#contato">Contato</a>
+        </div>
+        <div class="cta">
+          <button class="btn btn-outline" aria-label="Ver carrinho" onclick="toggleCart()">Carrinho</button>
+          <button class="btn btn-outline" aria-label="Abrir busca" onclick="openSearch()">Buscar</button>
+          <a href="#app" class="btn btn-solid">Baixar App</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main id="inicio">
+    <div class="container hero">
+      <div class="panel">
+        <div>
+          <h1>Moda sem rótulos. Liberdade sem limites.</h1>
+          <p>
+            A MR-Livre nasceu do desejo de empreender com propósito: criar uma marca que respeita identidades,
+            valoriza estilos e convida todo mundo a vestir o que ama. Sem separar por gênero, sem limitar por regras.
+            Apenas você, seu gosto, sua expressão. Do básico ao elaborado, com qualidade, autenticidade e inclusão.
+          </p>
+          <div class="badges">
+            <span class="badge">Versatilidade</span>
+            <span class="badge">Autenticidade</span>
+            <span class="badge">Inclusão</span>
+            <span class="badge">Qualidade</span>
+          </div>
+          <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+            <a class="btn btn-solid" href="#essencial">Explorar Essencial</a>
+            <a class="btn btn-outline" href="#conceito">Explorar Conceito</a>
+            <a class="btn btn-outline" href="#colecoes">Ver coleções</a>
+          </div>
+        </div>
+        <div class="art" aria-label="Logo destaque">
+          <img src="logo-mr-livre.png" alt="Logo MR-Livre dourada e moderna">
+        </div>
+      </div>
+    </div>
+
+    <!-- Mini vitrine destaque -->
+    <section id="destaques">
+      <div class="container">
+        <h2>Destaques da semana</h2>
+        <p class="sub">Peças queridinhas pela comunidade: conforto, caimento e identidade.</p>
+        <div class="grid">
+          <article class="card">
+            <div class="img">Imagem do produto</div>
+            <h3>Camiseta Livre 100% algodão</h3>
+            <p>Malha macia, gola reforçada e modelagem fluida.</p>
+            <div class="price">R$ 79,90</div>
+            <div class="small-actions">
+              <button class="btn btn-outline" onclick="addToCart('Camiseta Livre 100% algodão')">Carrinho</button>
+              <button class="btn btn-outline" onclick="addToWishlist('Camiseta Livre 100% algodão')">Wishlist</button>
+              <button class="btn btn-outline" onclick="compare('Camiseta Livre 100% algodão')">Comparar</button>
+            </div>
+          </article>
+          <article class="card">
+            <div class="img">Imagem do produto</div>
+            <h3>Jeans Versátil corte reto</h3>
+            <p>Lavagem clássica, tecido resistente e liberdade de movimento.</p>
+            <div class="price">R$ 189,90</div>
+            <div class="small-actions">
+              <button class="btn btn-outline" onclick="addToCart('Jeans Versátil corte reto')">Carrinho</button>
+              <button class="btn btn-outline" onclick="addToWishlist('Jeans Versátil corte reto')">Wishlist</button>
+              <button class="btn btn-outline" onclick="compare('Jeans Versátil corte reto')">Comparar</button>
+            </div>
+          </article>
+          <article class="card">
+            <div class="img">Imagem do produto</div>
+            <h3>Moletom Atemporal</h3>
+            <p>Conforto térmico, toque suave e estética limpa.</p>
+            <div class="price">R$ 159,90</div>
+            <div class="small-actions">
+              <button class="btn btn-outline" onclick="addToCart('Moletom Atemporal')">Carrinho</button>
+              <button class="btn btn-outline" onclick="addToWishlist('Moletom Atemporal')">Wishlist</button>
+              <button class="btn btn-outline" onclick="compare('Moletom Atemporal')">Comparar</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Manifesto -->
+  <section id="manifesto">
+    <div class="container">
+      <h2>Manifesto MR-Livre</h2>
+      <p class="sub">
+        Missão, visão e valores guiam cada coleção, cada peça e cada conversa com a nossa comunidade.
+      </p>
+      <div class="feature">
+        <div class="box">
+          <h3>Missão</h3>
+          <p>
+            Dar liberdade de expressão na moda, vendendo produtos de qualidade que respeitam a identidade de cada cliente.
+            Construir um ambiente seguro e inspirador onde vestir-se é ato de autonomia e autoestima.
+          </p>
+          <span class="tag">Livre</span>
+        </div>
+        <div class="box">
+          <h3>Visão</h3>
+          <p>
+            Ser referência em moda inclusiva, reconhecida pela versatilidade e pelo design atual.
+            Transformar a forma de comprar e usar roupas, abrindo espaço para estilos e silhuetas diversas.
+          </p>
+          <span class="tag">Referência</span>
+        </div>
+        <div class="box">
+          <h3>Valores</h3>
+          <p>
+            Respeito à diversidade, autenticidade, inclusão e qualidade. Pilares que norteiam criação, curadoria e atendimento.
+          </p>
+          <span class="tag">Essência</span>
+        </div>
+        <div class="box">
+          <h3>Conceito</h3>
+          <p>
+            Em vez de separar por feminino/masculino, organizamos por estilo, caimento e ocasião.
+            Curadoria que favorece cortes que vestem bem em diferentes corpos.
+          </p>
+          <span class="tag">Sem rótulos</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Essencial com filtros -->
+  <section id="essencial">
+    <div class="container">
+      <h2>Linha Essencial</h2>
+      <p class="sub">Básicos versáteis para o dia a dia: camisetas, jeans e moletons com caimentos pensados para diferentes corpos.</p>
+
+      <div class="filters" aria-label="Filtros essenciais">
+        <input id="searchEssencial" class="input" type="search" placeholder="Buscar no Essencial..." oninput="filterEssencial()">
+        <select id="fitEssencial" class="select" onchange="filterEssencial()">
+          <option value="">Fit</option>
+          <option value="solto">Solto</option>
+          <option value="regular">Regular</option>
+          <option value="estruturado">Estruturado</option>
+        </select>
+        <select id="precoEssencial" class="select" onchange="filterEssencial()">
+          <option value="">Preço</option>
+          <option value="0-100">Até R$100</option>
+          <option value="100-200">R$100–R$200</option>
+          <option value="200-300">R$200–R$300</option>
+        </select>
+        <button class="btn btn-outline" onclick="resetEssencial()">Limpar</button>
+      </div>
+
+      <div id="gridEssencial" class="grid" aria-label="Produtos Essencial">
+        <!-- Produtos Essencial (simulados) -->
+        <article class="card" data-name="Camiseta Livre 100% algodão" data-fit="regular" data-price="79">
+          <div class="img">Camiseta</div>
+          <h3>Camiseta Livre 100% algodão</h3>
+          <p>Malha macia, gola reforçada e modelagem fluida.</p>
+          <div class="price">R$ 79,90</div>
+          <span class="tag">Essencial</span>
+          <div class="card-actions">
+            <button class="btn btn-outline" onclick="addToCart('Camiseta Livre 100% algodão')">Adicionar</button>
+            <button class="btn btn-outline" onclick="openQuickView('Camiseta Livre 100% algodão')">Ver rápido</button>
+          </div>
+          <div class="small-actions">
+            <button class="btn btn-outline" onclick="addToWishlist('Camiseta Livre 100% algodão')">Wishlist</button>
+            <button class="btn btn-outline" onclick="compare('Camiseta Livre 100% algodão')">Comparar</button>
+          </div>
+        </article>
+
+        <article class="card" data-name="Jeans Versátil corte reto" data-fit="regular" data-price="189">
+          <div class="img">Jeans</div>
+          <h3>Jeans Versátil corte reto</h3>
+          <p>Lavagem clássica, tecido resistente e liberdade de movimento.</p>
+          <div class="price">R$ 189,90</div>
+          <span class="tag">Essencial</span>
+          <div class="card-actions">
+            <button class="btn btn-outline" onclick="addToCart('Jeans Versátil corte reto')">Adicionar</button>
+            <button class="btn btn-outline" onclick="openQuickView('Jeans Versátil corte reto')">Ver rápido</button>
+          </div>
+          <div class="small-actions">
+            <button class="btn btn-outline" onclick="addToWishlist('Jeans Versátil corte reto')">Wishlist</button>
+            <button class="btn btn-outline" onclick="compare('Jeans Versátil corte reto')">Comparar</button>
+          </div>
+        </article>
+
+        <article class="card" data-name="Moletom Atemporal" data-fit="solto" data-price="159">
+          <div class="img">Moletom</div>
+          <h3>Moletom Atemporal</h3>
+          <p>Conforto térmico e toque suave, ideal para camadas.</p>
+          <div class="price">R$ 159,90</div>
+          <span class="tag">Essencial</span>
+          <div class="card-actions">
+            <button class="btn btn-outline" onclick="addToCart('Moletom Atemporal')">Adicionar</button>
+            <button class="btn btn-outline" onclick="openQuickView('Moletom Atemporal')">Ver rápido</button>
+          </div>
+          <div class="small-actions">
+            <button class="btn btn-outline" onclick="addToWishlist('Moletom Atemporal')">Wishlist</button>
+            <button class="btn btn-outline" onclick="compare('Moletom Atemporal')">Comparar</button>
+          </div>
+        </article>
+
+        <article class="card" data-name="Camisa leve de linho" data-fit="solto" data-price="219">
+          <div class="img">Camisa</div>
+          <h3>Camisa leve de linho</h3>
+          <p>Tecido respirável, toque natural e caimento relax.</p>
+          <div class="price">R$ 219,90</div>
+          <span class="tag">Essencial</span>
+          <div class="card-actions">
+            <button class="btn btn-outline" onclick="addToCart('Camisa leve de linho')">Adicionar</button>
+            <button class="btn btn-outline" onclick="openQuickView('Camisa leve de linho')">Ver rápido</button>
+          </div>
+          <div class="small-actions">
+            <button class="btn btn-outline" onclick="addToWishlist('Camisa leve de linho')">Wishlist</button>
+            <button class="btn btn-outline" onclick="compare('Camisa leve de linho')">Comparar</button>
+          </div>
+        </article>
+
+        <article class="card" data-name="Short Versátil cintura elástica" data-fit="regular" data-price="109">
+          <div class="img">Short</div>
+          <h3>Short Versátil cintura elástica</h3>
+          <p>Mobilidade e conforto com regulagem prática.</p>
+          <div class="price">R$ 109,90</div>
+          <span class="tag">Essencial</span>
+          <div class="card-actions">
+            <button class="btn btn-outline" onclick="addToCart('Short Versátil cintura elástica')">Adicionar</button>
+            <button class="btn btn-outline" onclick="openQuickView('Short Versátil cintura elástica')">Ver rápido</button>
+          </div>
+          <div class="small-actions">
+            <button class="btn btn-outline" onclick="addToWishlist('Short Versátil cintura elástica')">Wishlist</button>
+            <button class="btn btn-outline" onclick="compare('Short Versátil cintura elástica')">Comparar</button>
+          </div>
+        </article>
+
+        <article class="card" data-name="Cardigan Básico textura fina" data-fit="regular" data-price="169">
+          <div class="img">Cardigan</div>
+          <h3>Cardigan Básico textura fina</h3>
+          <p>Camada leve para compor looks atemporais.</p>
+          <div class="price">R$ 169,90</div>
+          <span class="tag">Essencial</span>
+          <div class="card-actions">
+            <button class="btn btn-outline" onclick="addToCart('Cardigan Básico textura fina')">Adicionar</button>
+            <button class="btn btn-outline" onclick="openQuickView('Cardigan Básico textura fina')">Ver rápido</button>
+          </div>
+          <div class="small-actions">
+            <button class="btn btn-outline" onclick="addToWishlist('Cardigan Básico textura fina')">Wishlist</button>
+            <button class="btn btn-outline" onclick="compare('Cardigan Básico textura fina')">Comparar</button>
+          </div>
+        </article>
+      </div>
+
+      <div style="margin-top:18px">
+        <blockquote>
+          Dica: combine básicos em texturas diferentes para criar profundidade visual sem complicar o look.
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- Conceito com filtros -->
+  <section id="conceito">
+    <div class="container">
+      <h2>Linha Conceito</h2>
+      <p class="sub">Design com personalidade, cortes modernos e tecidos sofisticados. Ousar sem abrir mão de conforto e identidade.</p>
+
+      <div class="filters" aria-label="Filtros conceito">
+        <input id="searchConceito" class="input" type="search" placeholder="Buscar no Conceito..." oninput="filterConceito()">
+        <select id="fitConceito" class="select" onchange="filterConceito()">
+          <option value="">Fit</option>
+          <option value="solto">Solto</option>
+          <option value="regular">Regular</option>
+          <option value="estruturado">Estruturado</option>
+        </select>
+        <select id="precoConceito" class="select" onchange="filterConceito()">
+          <option value="">Preço</option>
+          <option value="0-200">Até R$200</option>
+          <option value="200-300">R$200–R$300</option>
+          <option value="300-500">R$300–R$500</option>
+        </select>
+        <button class="btn btn-outline" onclick="resetConceito()">Limpar</button>
+      </div>
+
+      <div id="gridConceito" class="grid" aria-label="Produtos Conceito">
+        <!-- Produtos Conceito (simulados) -->
+        <article class="card" data-name="Camisa Estrutural assimétrica" data-fit="estruturado" data-price="249">
+          <div class="img">Camisa assimétrica</div>
+          <h3>Camisa Estrutural assimétrica</h3>
+          <p>Recortes arquitetônicos, caimento inteligente e botões invisíveis.</p>
+          <div class="price">R$ 249,90</div>
+          <span class="tag">Conceito</span>
+          <div class="card-actions">
+            <button class="btn btn-outline" onclick="addToCart('Camisa Estrutural assimétrica')">Adicionar</button>
+            <button class="btn btn-outline" onclick="openQuickView('Camisa Estrutural assimétrica')">Ver rápido</button>
+          </div>
+          <div class="small-actions">
+            <button class="btn btn-outline" onclick="addToWishlist('Camisa Estrutural assimétrica')">Wishlist</button>
+            <button class="btn btn-outline" onclick="compare('Camisa Estrutural assimétrica')">Comparar</button>
+          </div>
+        </article>
+
+        <article class="card" data-name="Calça Fluida com pregas" data-fit="solto" data-price="279">
+          <div class="img">Calça fluida</div>
+          <h3>Calça Fluida com pregas</h3>
+          <p>Movimento elegante e tecido leve para looks autorais.</p>
+          <div class="price">R$ 279,90</div>
+          <span class="tag">Conceito</span>
+          <div class="card-actions">
+            <button class="btn btn-outline" onclick="addToCart('Calça Fluida com pregas')">Adicionar</button>
+            <button class="btn btn-outline" onclick="openQuickView('Calça Fluida com pregas')">Ver rápido</button>
+          </div>
+          <div class="small-actions">
+            <button class="btn btn-outline" onclick="addToWishlist('Calça Fluida com pregas')">Wishlist</button>
+            <button class="btn btn-outline" onclick="compare('Calça Fluida com pregas')">Comparar</button>
+          </div>
+        </article>
+
+        <article class="card" data-name="Casaco Estrutural com gola ampla" data-fit="estruturado" data-price="399">
+          <div class="img">Casaco estrutural</div>
+          <h3>Casaco Estrutural com gola ampla</h3>
+          <p>Construção sofisticada, acabamento impecável e presença marcante.</p>
+          <div class="price">R$ 399,90</div>
+          <span class="tag">Conceito</span>
+          <div class="card-actions">
+            <button class="btn btn-outline" onclick="addToCart('Casaco Estrutural com gola ampla')">Adicionar</button>
+            <button class="btn btn-outline" onclick="openQuickView('Casaco Estrutural com gola ampla')">Ver rápido</button>
+          </div>
+          <div class="small-actions">
+            <button class="btn btn-outline" onclick="addToWishlist('Casaco Estrutural com gola ampla')">Wishlist</button>
+            <button class="btn btn-outline" onclick="compare('Casaco Estrutural com gola ampla')">Comparar</button>
+          </div>
+        </article>
+
+        <article class="card" data-name="Colete Escultórico" data-fit="estruturado" data-price="229">
+          <div class="img">Colete</div>
+          <h3>Colete Escultórico</h3>
+          <p>Volumes equilibrados e regulagens que valorizam diferentes corpos.</p>
+          <div class="price">R$ 229,90</div>
+          <span class="tag">Conceito</span>
+          <div class="card-actions">
+            <button class="btn btn-outline" onclick="addToCart('Colete Escultórico')">Adicionar</button>
+            <button class="btn btn-outline" onclick="openQuickView('Colete Escultórico')">Ver rápido</button>
+          </div>
+          <div class="small-actions">
+            <button class="btn btn-outline" onclick="addToWishlist('Colete Escultórico')">Wishlist</button>
+            <button class="btn btn-outline" onclick="compare('Colete Escultórico')">Comparar</button>
+          </div>
+        </article>
+
+        <article class="card" data-name="Saia Painel Modular" data-fit="regular" data-price="259">
+          <div class="img">Saia</div>
+          <h3>Saia Painel Modular</h3>
+          <p>Painéis ajustáveis e textura premium para composições autorais.</p>
+          <div class="price">R$ 259,90</div>
+          <span class="tag">Conceito</span>
+          <div class="card-actions">
+            <button class="btn btn-outline" onclick="addToCart('Saia Painel Modular')">Adicionar</button>
+            <button class="btn btn-outline" onclick="openQuickView('Saia Painel Modular')">Ver rápido</button>
+          </div>
+          <div class="small-actions">
+            <button class="btn btn-outline" onclick="addToWishlist('Saia Painel Modular')">Wishlist</button>
+            <button class="btn btn-outline" onclick="compare('Saia Painel Modular')">Comparar</button>
+          </div>
+        </article>
+
+        <article class="card" data-name="Macacão Linha Limpa" data-fit="regular" data-price="349">
+          <div class="img">Macacão</div>
+          <h3>Macacão Linha Limpa</h3>
+          <p>Design minimalista, zíper invisível e caimento elegante.</p>
+          <div class="price">R$ 349,90</div>
+          <span class="tag">Conceito</span>
+          <div class="card-actions">
+            <button class="btn btn-outline" onclick="addToCart('Macacão Linha Limpa')">Adicionar</button>
+            <button class="btn btn-outline" onclick="openQuickView('Macacão Linha Limpa')">Ver rápido</button>
+          </div>
+          <div class="small-actions">
+            <button class="btn btn-outline" onclick="addToWishlist('Macacão Linha Limpa')">Wishlist</button>
+            <button class="btn btn-outline" onclick="compare('Macacão Linha Limpa')">Comparar</button>
+          </div>
+        </article>
+      </div>
+
+      <div class="feature" style="margin-top:18px">
+        <div class="box">
+          <h3>Organização por estilo</h3>
+          <p>
+            Em vez de separar por gênero, organizamos por cortes, caimentos e ocasiões: cotidiano, trabalho, evento e casual-refinado.
+            Você escolhe o que conversa com seu corpo e sua história.
+          </p>
+        </div>
+        <div class="box">
+          <h3>Materiais e durabilidade</h3>
+          <p>
+            Selecionamos matérias-primas com foco em conforto, resistência e manutenção simples.
+            Sustentabilidade também é criar peças que duram no seu guarda-roupa.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Coleções -->
+  <section id="colecoes">
+    <div class="container">
+      <h2>Coleções e curadoria</h2>
+      <p class="sub">Cada coleção nasce do diálogo entre liberdade e funcionalidade, para corpos diversos e expressões plurais.</p>
+
+      <table aria-label="Coleções MR-Livre">
+        <thead>
+          <tr>
+            <th>Coleção</th>
+            <th>Proposta</th>
+            <th>Peças-chave</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Essencial Atemporal</td>
+            <td>Base do guarda-roupa com conforto, qualidade e versatilidade.</td>
+            <td>Camisetas premium, jeans reto, moletom minimalista.</td>
+          </tr>
+          <tr>
+            <td>Conceito Moderno</td>
+            <td>Design autoral com recortes, volumes e texturas sofisticadas.</td>
+            <td>Camisa assimétrica, calça fluida, casaco estrutural.</td>
+          </tr>
+          <tr>
+            <td>Reuso Criativo</td>
+            <td>Reutilização de materiais e reinterpretação de clássicos.</td>
+            <td>Peças cápsula com upcycling e acabamentos únicos.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="margin-top:18px" class="feature">
+        <div class="box">
+          <h3>Sem gênero, com intenção</h3>
+          <p>
+            Proporções e regulagens ampliam o leque de corpos atendidos: amarrações, elásticos, ajustes de barra e cintura.
+          </p>
+        </div>
+        <div class="box">
+          <h3>Guia de caimento</h3>
+          <p>
+            Em vez de M/F, indicamos medidas úteis: ombro, comprimento, amplitude de quadril e referência de fit (solto, regular, estruturado).
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Avaliações da comunidade -->
+  <section id="avaliacoes">
+    <div class="container">
+      <h2>Avaliações da comunidade</h2>
+      <p class="sub">Transparência e trocas sinceras para evoluirmos com você.</p>
+
+      <div class="grid">
+        <div class="review">
+          <div class="stars">★★★★★</div>
+          <p><strong>Camiseta Livre</strong> tem um toque incrível. Uso no dia a dia e continua com ótimo caimento.</p>
+          <small>por Jade</small>
+        </div>
+        <div class="review">
+          <div class="stars">★★★★☆</div>
+          <p>O <strong>Jeans Versátil</strong> ficou perfeito, só ajustei a barra. A página de medidas ajuda muito.</p>
+          <small>por Ravi</small>
+        </div>
+        <div class="review">
+          <div class="stars">★★★★★</div>
+          <p>O <strong>Casaco Estrutural</strong> é presença. Acabamento impecável e confortável mesmo com volume.</p>
+          <small>por Vic</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog -->
+  <section id="blog">
+    <div class="container">
+      <h2>Blog MR-Livre</h2>
+      <p class="sub">Conteúdo útil, inspiração e conversas sobre moda sem rótulos.</p>
+
+      <div class="blog-grid">
+        <article class="blog-card">
+          <h4>Como montar um guarda-roupa essencial sem rótulos</h4>
+          <p>Guia prático para escolher básicos versáteis e duráveis, focando caimento e textura.</p>
+          <button class="btn btn-outline" onclick="openPost('guarda-roupa-essencial')">Ler</button>
+        </article>
+        <article class="blog-card">
+          <h4>O que é fit na prática?</h4>
+          <p>Entenda as diferenças entre solto, regular e estruturado e como comparar com seu corpo.</p>
+          <button class="btn btn-outline" onclick="openPost('o-que-e-fit')">Ler</button>
+        </article>
+        <article class="blog-card">
+          <h4>Materiais, manutenção e durabilidade</h4>
+          <p>Como cuidar das peças para que durem mais tempo sem perder qualidade.</p>
+          <button class="btn btn-outline" onclick="openPost('materiais-e-durabilidade')">Ler</button>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Políticas -->
+  <section id="politicas">
+    <div class="container">
+      <h2>Políticas MR-Livre</h2>
+      <p class="sub">Transparência em trocas, devoluções, fretes, privacidade e termos.</p>
+
+      <div class="feature">
+        <div class="box">
+          <h3>Trocas e devoluções</h3>
+          <p>
+            Aceitamos trocas e devoluções em até 30 dias corridos após o recebimento, desde que a peça esteja sem uso,
+            com etiquetas e na embalagem original. O processo é simples pelo nosso atendimento.
+          </p>
+          <p>
+            Peças com defeito de fabricação têm prioridade de análise e solução em até 7 dias úteis após o contato.
+          </p>
+        </div>
+        <div class="box">
+          <h3>Fretes e prazos</h3>
+          <p>
+            Frete calculado no checkout conforme CEP. Oferecemos frete grátis acima de R$199. Prazos variam por região.
+          </p>
+          <p>
+            Você recebe atualizações por e-mail e pode acompanhar o status do pedido pelo app ou site.
+          </p>
+        </div>
+        <div class="box">
+          <h3>Privacidade</h3>
+          <p>
+            Tratamos seus dados com responsabilidade, utilizando apenas o necessário para processamento de pedidos,
+            suporte e comunicação de novidades. Você pode solicitar a exclusão das informações a qualquer momento.
+          </p>
+        </div>
+        <div class="box">
+          <h3>Termos de uso</h3>
+          <p>
+            Ao comprar na MR-Livre, você concorda com nossos termos de uso, incluindo regras de conduta, direitos de propriedade intelectual
+            e limites de responsabilidade. Os termos são atualizados periodicamente para refletir melhorias.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="container">
+      <h2>Perguntas frequentes</h2>
+      <p class="sub">Respostas rápidas para dúvidas comuns.</p>
+
+      <div class="feature">
+        <div class="box">
+          <h3>Como escolho o tamanho?</h3>
+          <p>
+            Em vez de gênero, usamos medidas: compare ombro, comprimento e amplitude de quadril com suas referências.
+            O fit indica a sensação geral da peça (solto, regular, estruturado).
+          </p>
+        </div>
+        <div class="box">
+          <h3>Posso trocar se não servir?</h3>
+          <p>
+            Sim, trocas são aceitas em até 30 dias. O suporte orienta o processo de coleta ou postagem, conforme sua região.
+          </p>
+        </div>
+        <div class="box">
+          <h3>Vocês têm loja física?</h3>
+          <p>
+            Começamos 100% online e planejamos abrir loja física após consolidar as vendas e o app.
+          </p>
+        </div>
+        <div class="box">
+          <h3>Como funciona o frete grátis?</h3>
+          <p>
+            Frete grátis para compras a partir de R$199, aplicado automaticamente no checkout quando o valor mínimo é atingido.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section id="newsletter">
+    <div class="container">
+      <h2>Assine a newsletter</h2>
+      <p class="sub">Receba lançamentos, promoções e conteúdos exclusivos.</p>
+      <div class="newsletter">
+        <form onsubmit="subscribe(event)" aria-label="Formulário de newsletter">
+          <label for="newsEmail">Seu e-mail</label><br>
+          <input id="newsEmail" class="input" type="email" placeholder="voce@email.com" required style="width:100%;max-width:420px;margin:8px 0">
+          <button class="btn btn-solid" type="submit">Assinar</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contato -->
+  <section id="contato">
+    <div class="container">
+      <h2>Contato e atendimento</h2>
+      <p class="sub">Dúvidas, trocas e suporte: fale com a MR-Livre.</p>
+
+      <div class="feature">
+        <div class="box">
+          <h3>Fale conosco</h3>
+          <p>
+            E-mail: atendimento@lojamrlivre.com.br (placeholder)<br>
+            Horário: 9h–18h, seg–sex (online).<br>
+            Prazo de resposta: até 24h úteis.
+          </p>
+          <form onsubmit="sendContact(event)" aria-label="Formulário de contato">
+            <label for="nomeContato">Nome</label><br>
+            <input id="nomeContato" class="input" type="text" placeholder="Seu nome" required style="width:100%;max-width:420px;margin:6px 0"><br>
+            <label for="emailContato">E-mail</label><br>
+            <input id="emailContato" class="input" type="email" placeholder="voce@email.com" required style="width:100%;max-width:420px;margin:6px 0"><br>
+            <label for="mensagemContato">Mensagem</label><br>
+            <textarea id="mensagemContato" class="input" placeholder="Como podemos ajudar?" required style="width:100%;max-width:620px;height:120px;margin:6px 0"></textarea><br>
+            <button class="btn btn-solid" type="submit">Enviar</button>
+          </form>
+        </div>
+        <div class="box">
+          <h3>Políticas</h3>
+          <p>
+            Trocas e devoluções com política clara e prazos informados. Transparência no frete, prazos e comunicação de estoque.
+            Atendimento humanizado sempre.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- App -->
+  <section id="app">
+    <div class="container">
+      <h2>App e experiência de compra</h2>
+      <p class="sub">
+        Começamos 100% online: site e aplicativo próprio para compras imediatas. Experiência prioriza clareza, acessibilidade e rapidez.
+      </p>
+
+      <div class="feature">
+        <div class="box">
+          <h3>Loja virtual</h3>
+          <p>
+            Navegue por estilos e tipos de peça. Filtros de caimento e ocasião substituem categorias de gênero, facilitando a escolha livre.
+          </p>
+          <button class="btn btn-outline" onclick="openModal('loja-virtual')">Saiba mais</button>
+        </div>
+        <div class="box">
+          <h3>Baixe o aplicativo</h3>
+          <p>
+            Acompanhe coleções, promoções e lançamentos. Notificações configuráveis e checkout rápido.
+            Endereço do site/app: www.lojamrlivre.com.br (placeholder).
+          </p>
+          <button class="btn btn-solid" onclick="downloadApp()">Baixar</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="foot-title">MR-Livre</div>
+          <p>
+            Moda sem rótulos, feita para você vestir com liberdade. Do essencial ao conceito, cada peça valoriza identidade e conforto.
+          </p>
+          <p>
+            CNPJ: 00.000.000/0000-00 (placeholder) • Endereço: Londrina, PR (online)
+          </p>
+        </div>
+        <div>
+          <div class="foot-title">Navegação</div>
+          <p><a href="#inicio">Início</a> • <a href="#essencial">Essencial</a> • <a href="#conceito">Conceito</a></p>
+          <p><a href="#colecoes">Coleções</a> • <a href="#blog">Blog</a> • <a href="#politicas">Políticas</a></p>
+        </div>
+        <div>
+          <div class="foot-title">Atendimento</div>
+          <p><a href="#contato">Contato</a> • <a href="#faq">FAQ</a></p>
+          <p>atendimento@lojamrlivre.com.br</p>
+        </div>
+        <div>
+          <div class="foot-title">Redes sociais</div>
+          <p><a href="#" aria-label="Instagram MR-Livre">Instagram</a> • <a href="#" aria-label="TikTok MR-Livre">TikTok</a></p>
+          <p><a href="#" aria-label="YouTube MR-Livre">YouTube</a> • <a href="#" aria-label="Pinterest MR-Livre">Pinterest</a></p>
+        </div>
+      </div>
+      <div class="copyright">© 2025 MR-Livre. Todos os direitos reservados.</div>
+    </div>
+  </footer>
+
+  <!-- Carrinho flutuante -->
+  <div id="cart" aria-live="polite" aria-label="Carrinho de compras">
+    <header>
+      <strong style="font-family:'Playfair Display',serif;color:#4a3b10">Seu carrinho</strong>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-outline" onclick="toggleCart()">Fechar</button>
+        <button class="btn btn-outline" onclick="clearCart()">Limpar</button>
+      </div>
+    </header>
+    <ul id="cart-items"></ul>
+    <div id="cart-empty" style="color:#7a7a7a;font-size:0.95rem">Seu carrinho está vazio.</div>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn btn-solid" onclick="checkout()">Finalizar compra</button>
+      <button class="btn btn-outline" onclick="saveCart()">Salvar</button>
+      <button class="btn btn-outline" onclick="loadCart()">Recuperar</button>
+    </div>
+  </div>
+
+  <!-- Modal de busca -->
+  <div id="searchModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="searchTitle">
+    <div class="content">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h3 id="searchTitle" style="margin:0">Buscar produtos</h3>
+        <button class="btn btn-outline" onclick="closeSearch()">Fechar</button>
+      </div>
+      <div style="margin-top:12px">
+        <input id="globalSearch" class="input" type="search" placeholder="Digite o nome da peça..." oninput="globalFilter()" style="width:100%">
+      </div>
+      <div style="margin-top:12px">
+        <p class="sub">Resultados em Essencial e Conceito</p>
+        <div id="searchResults" class="grid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal genérico -->
+  <div id="genericModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="genericTitle">
+    <div class="content">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h3 id="genericTitle" style="margin:0">Informações</h3>
+        <button class="btn btn-outline" onclick="closeModal()">Fechar</button>
+      </div>
+      <div id="genericBody" style="margin-top:12px">
+        <!-- Conteúdo dinâmico -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Quick View -->
+  <div id="quickViewModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="qvTitle">
+    <div class="content">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h3 id="qvTitle" style="margin:0">Visualização rápida</h3>
+        <button class="btn btn-outline" onclick="closeQuickView()">Fechar</button>
+      </div>
+      <div id="qvBody" style="margin-top:12px">
+        <!-- Preenchido via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Script principal -->
+  <script>
+    // =========================================================
+    // Estado e utilidades
+    // =========================================================
+    const cart = [];
+    const wishlist = new Set();
+    const compareList = new Set();
+
+    const cartEl = document.getElementById('cart');
+    const cartItemsEl = document.getElementById('cart-items');
+    const cartEmptyEl = document.getElementById('cart-empty');
+
+    const searchModal = document.getElementById('searchModal');
+    const genericModal = document.getElementById('genericModal');
+    const quickViewModal = document.getElementById('quickViewModal');
+
+    // Acessibilidade: fechar modais com ESC
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape'){
+        closeSearch();
+        closeModal();
+        closeQuickView();
+      }
+    });
+
+    // =========================================================
+    // Carrinho
+    // =========================================================
+    function toggleCart(){
+      const show = (cartEl.style.display === 'none' || cartEl.style.display === '') ? 'block' : 'none';
+      cartEl.style.display = show;
+    }
+    function addToCart(item){
+      const found = cart.find(p=>p.name===item);
+      if(found){ found.qty++; }
+      else{ cart.push({ name:item, qty:1 }); }
+      renderCart();
+      cartEl.style.display = 'block';
+    }
+    function inc(i){ cart[i].qty++; renderCart(); }
+    function dec(i){ cart[i].qty = Math.max(1, cart[i].qty-1); renderCart(); }
+    function removeItem(i){ cart.splice(i,1); renderCart(); }
+    function clearCart(){ cart.length = 0; renderCart(); }
+    function renderCart(){
+      cartItemsEl.innerHTML = '';
+      if(cart.length === 0){
+        cartEmptyEl.style.display = 'block';
+        return;
+      }
+      cartEmptyEl.style.display = 'none';
+      cart.forEach((p, idx)=>{
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+            <div>
+              <strong style="color:#4a3b10">${p.name}</strong>
+              <div style="font-size:0.9rem;color:#7a7a7a">Qtd: ${p.qty}</div>
+            </div>
+            <div style="display:flex;gap:6px">
+              <button class="btn btn-outline" aria-label="Adicionar unidade" onclick="inc(${idx})">+</button>
+              <button class="btn btn-outline" aria-label="Remover unidade" onclick="dec(${idx})">-</button>
+              <button class="btn btn-outline" aria-label="Remover item" onclick="removeItem(${idx})">x</button>
+            </div>
+          </div>
+        `;
+        cartItemsEl.appendChild(li);
+      });
+    }
+    function checkout(){
+      alert('Checkout de demonstração: em breve, pagamento integrado. Obrigado por escolher a MR-Livre!');
+    }
+    function saveCart(){
+      try{
+        localStorage.setItem('mr_cart', JSON.stringify(cart));
+        alert('Carrinho salvo com sucesso neste dispositivo.');
+      }catch(e){
+        alert('Não foi possível salvar o carrinho.');
+      }
+    }
+    function loadCart(){
+      try{
+        const data = JSON.parse(localStorage.getItem('mr_cart') || '[]');
+        cart.length = 0;
+        data.forEach(d=>cart.push(d));
+        renderCart();
+        cartEl.style.display = 'block';
+      }catch(e){
+        alert('Não foi possível recuperar o carrinho.');
+      }
+    }
+
+    // =========================================================
+    // Wishlist e Comparador
+    // =========================================================
+    function addToWishlist(item){
+      wishlist.add(item);
+      alert(`"${item}" adicionado à wishlist.`);
+    }
+    function compare(item){
+      if(compareList.has(item)){
+        compareList.delete(item);
+        alert(`"${item}" removido do comparador.`);
+      }else{
+        compareList.add(item);
+        alert(`"${item}" adicionado ao comparador.`);
+      }
+    }
+
+    // =========================================================
+    // Busca global
+    // =========================================================
+    function openSearch(){
+      searchModal.style.display = 'flex';
+      document.getElementById('globalSearch').focus();
+      globalFilter(); // mostra todos inicialmente
+    }
+    function closeSearch(){ searchModal.style.display = 'none'; }
+    function globalFilter(){
+      const q = document.getElementById('globalSearch').value.trim().toLowerCase();
+      const essencialItems = [...document.querySelectorAll('#gridEssencial .card')];
+      const conceitoItems = [...document.querySelectorAll('#gridConceito .card')];
+      const pool = [...essencialItems, ...conceitoItems];
+
+      const resEl = document.getElementById('searchResults');
+      resEl.innerHTML = '';
+
+      pool.forEach(card=>{
+        const name = card.dataset.name?.toLowerCase() || card.querySelector('h3').textContent.toLowerCase();
+        if(!q || name.includes(q)){
+          const clone = card.cloneNode(true);
+          // remove botões que não fazem sentido no modal
+          clone.querySelectorAll('button').forEach(b=>b.remove());
+          const btn = document.createElement('button');
+          btn.className = 'btn btn-outline';
+          btn.textContent = 'Adicionar';
+          btn.onclick = ()=>addToCart(card.dataset.name || card.querySelector('h3').textContent);
+          clone.appendChild(btn);
+          resEl.appendChild(clone);
+        }
+      });
+      if(resEl.children.length === 0){
+        const empty = document.createElement('div');
+        empty.textContent = 'Nenhum resultado encontrado.';
+        resEl.appendChild(empty);
+      }
+    }
+
+    // =========================================================
+    // Quick View
+    // =========================================================
+    function openQuickView(name){
+      const all = [...document.querySelectorAll('.card')];
+      const card = all.find(c=> (c.dataset.name || c.querySelector('h3').textContent) === name);
+      if(!card){ return; }
+
+      const title = card.querySelector('h3').textContent;
+      const tag = card.querySelector('.tag')?.textContent || '';
+      const desc = card.querySelector('p')?.textContent || '';
+      const price = card.querySelector('.price')?.textContent || '';
+
+      document.getElementById('qvTitle').textContent = title;
+      document.getElementById('qvBody').innerHTML = `
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+          <div>
+            <div style="height:220px;border:1px solid #ead59a;border-radius:14px;display:flex;align-items:center;justify-content:center;background:#fffef9;color:#4a3b10;font-weight:600">Prévia</div>
+          </div>
+          <div>
+            <p><strong>Categoria:</strong> ${tag}</p>
+            <p><strong>Descrição:</strong> ${desc}</p>
+            <p><strong>Preço:</strong> ${price}</p>
+            <p><strong>Fit:</strong> ${card.dataset.fit || '—'}</p>
+            <p><strong>Guia de medidas:</strong> ombro, comprimento, amplitude de quadril (consulte a página de produto)</p>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+              <button class="btn btn-solid" onclick="addToCart('${title}')">Adicionar ao carrinho</button>
+              <button class="btn btn-outline" onclick="addToWishlist('${title}')">Salvar na wishlist</button>
+            </div>
+          </div>
+        </div>
+      `;
+      quickViewModal.style.display = 'flex';
+    }
+    function closeQuickView(){ quickViewModal.style.display = 'none'; }
+
+    // =========================================================
+    // Modais genéricos
+    // =========================================================
+    function openModal(type){
+      const titleEl = document.getElementById('genericTitle');
+      const bodyEl = document.getElementById('genericBody');
+
+      if(type === 'loja-virtual'){
+        titleEl.textContent = 'Loja virtual MR-Livre';
+        bodyEl.innerHTML = `
+          <p>
+            A loja foi planejada para navegar por estilos e tipos de peça, com filtros práticos de caimento e ocasião.
+            O checkout é simples e amigável, com suporte humano.
+          </p>
+        `;
+      }else{
+        titleEl.textContent = 'Informações';
+        bodyEl.innerHTML = '<p>Conteúdo em breve.</p>';
+      }
+      genericModal.style.display = 'flex';
+    }
+    function closeModal(){ genericModal.style.display = 'none'; }
+
+    // =========================================================
+    // Filtros Essencial
+    // =========================================================
+    function filterEssencial(){
+      const q = document.getElementById('searchEssencial').value.trim().toLowerCase();
+      const fit = document.getElementById('fitEssencial').value;
+      const preco = document.getElementById('precoEssencial').value;
+      const cards = [...document.querySelectorAll('#gridEssencial .card')];
+
+      cards.forEach(c=>{
+        const name = (c.dataset.name || c.querySelector('h3').textContent).toLowerCase();
+        const okQ = !q || name.includes(q);
+        const okFit = !fit || (c.dataset.fit === fit);
+        let okPrice = true;
+        if(preco){
+          const [min, max] = preco.split('-').map(Number);
+          const p = Number(c.dataset.price || 0);
+          okPrice = p >= min && p <= max;
+        }
+        c.style.display = (okQ && okFit && okPrice) ? '' : 'none';
+      });
+    }
+    function resetEssencial(){
+      document.getElementById('searchEssencial').value = '';
+      document.getElementById('fitEssencial').value = '';
+      document.getElementById('precoEssencial').value = '';
+      filterEssencial();
+    }
+
+    // =========================================================
+    // Filtros Conceito
+    // =========================================================
+    function filterConceito(){
+      const q = document.getElementById('searchConceito').value.trim().toLowerCase();
+      const fit = document.getElementById('fitConceito').value;
+      const preco = document.getElementById('precoConceito').value;
+      const cards = [...document.querySelectorAll('#gridConceito .card')];
+
+      cards.forEach(c=>{
+        const name = (c.dataset.name || c.querySelector('h3').textContent).toLowerCase();
+        const okQ = !q || name.includes(q);
+        const okFit = !fit || (c.dataset.fit === fit);
+        let okPrice = true;
+        if(preco){
+          const [min, max] = preco.split('-').map(Number);
+          const p = Number(c.dataset.price || 0);
+          okPrice = p >= min && p <= max;
+        }
+        c.style.display = (okQ && okFit && okPrice) ? '' : 'none';
+      });
+    }
+    function resetConceito(){
+      document.getElementById('searchConceito').value = '';
+      document.getElementById('fitConceito').value = '';
+      document.getElementById('precoConceito').value = '';
+      filterConceito();
+    }
+
+    // =========================================================
+    // Newsletter e contato
+    // =========================================================
+    function subscribe(e){
+      e.preventDefault();
+      const email = document.getElementById('newsEmail').value.trim();
+      if(!email){ return; }
+      alert(`Obrigado! Vamos enviar novidades para: ${email}`);
+      e.target.reset();
+    }
+    function sendContact(e){
+      e.preventDefault();
+      const nome = document.getElementById('nomeContato').value.trim();
+      const email = document.getElementById('emailContato').value.trim();
+      const msg = document.getElementById('mensagemContato').value.trim();
+      if(!nome || !email || !msg){ return; }
+      alert(`Mensagem enviada! Obrigado, ${nome}. Responderemos em até 24h úteis.`);
+      e.target.reset();
+    }
+
+    // =========================================================
+    // Blog
+    // =========================================================
+    function openPost(slug){
+      alert('Post em breve: ' + slug);
+    }
+
+    // =========================================================
+    // App
+    // =========================================================
+    function downloadApp(){
+      alert('Download em breve na loja oficial. Fique de olho!');
+    }
+
+    // =========================================================
+    // Dados estruturados (SEO)
+    // =========================================================
+    const jsonLd = {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "MR-Livre",
+      "url": "https://www.lojamrlivre.com.br/",
+      "logo": "https://www.lojamrlivre.com.br/logo-mr-livre.png",
+      "sameAs": [
+        "https://instagram.com/mr_livre",
+        "https://tiktok.com/@mr_livre"
+      ],
+      "brand": {
+        "@type": "Brand",
+        "name": "MR-Livre"
+      }
+    };
+    const scriptLd = document.createElement('script');
+    scriptLd.type = 'application/ld+json';
+    scriptLd.textContent = JSON.stringify(jsonLd);
+    document.head.appendChild(scriptLd);
+
+    // =========================================================
+    // Inicialização
+    // =========================================================
+    document.addEventListener('DOMContentLoaded', ()=>{
+      filterEssencial();
+      filterConceito();
+      renderCart();
+    });
+  </script>
+</body>
+</html>
 
