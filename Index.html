@@ -1,1 +1,609 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MR-Livre | Moda sem rótulos</title>
+  <meta name="description" content="MR-Livre: moda sem gênero, do essencial ao conceito. Liberdade de escolha, autenticidade e qualidade. Loja online com peças versáteis e inclusivas.">
+  <meta name="theme-color" content="#d4af37">
+
+  <!-- Fonte limpa com boa legibilidade -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --gold:#d4af37;
+      --gold-600:#b58f2c;
+      --gold-300:#ead59a;
+      --gold-100:#fff6df;
+      --black:#111111;
+      --white:#ffffff;
+      --gray-100:#f7f7f7;
+      --gray-300:#e7e7e7;
+      --gray-600:#7a7a7a;
+      --radius:14px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--white);color:var(--black)}
+    body{font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; line-height:1.6}
+
+    /* Layout base */
+    .container{width:100%;max-width:1180px;margin:0 auto;padding:0 20px}
+    header{position:sticky;top:0;background:rgba(255,255,255,0.9);backdrop-filter:saturate(140%) blur(6px);border-bottom:1px solid var(--gray-300);z-index:50}
+    nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .brand{display:flex;align-items:center;gap:14px}
+    .brand img{height:48px;width:auto}
+    .brand .title{font-family:"Playfair Display", serif;font-size:1.4rem;font-weight:700;letter-spacing:0.4px}
+    .brand .title span{color:var(--gold)}
+    .nav-links{display:flex;gap:18px;flex-wrap:wrap}
+    .nav-links a{color:var(--black);text-decoration:none;font-weight:600;padding:8px 12px;border-radius:10px}
+    .nav-links a:hover{background:var(--gray-100)}
+    .cta{display:flex;gap:8px}
+    .btn{border:none;border-radius:12px;padding:10px 14px;font-weight:600;cursor:pointer}
+    .btn-outline{background:transparent;border:1.5px solid var(--gold);color:var(--gold)}
+    .btn-solid{background:var(--gold);color:var(--white)}
+    .btn-solid:hover{background:var(--gold-600)}
+    .btn-outline:hover{background:var(--gold-100)}
+
+    /* Hero */
+    .hero{position:relative;padding:64px 0 40px}
+    .hero .panel{
+      border:1.5px solid var(--gold-300);
+      border-radius:24px;
+      background:linear-gradient(180deg, var(--white), #fffdf7);
+      padding:30px;
+      display:grid;
+      grid-template-columns:1.2fr 0.8fr;
+      gap:20px;
+    }
+    .hero h1{font-family:"Playfair Display", serif;font-size:2.4rem;margin:0}
+    .hero p{color:#222;margin-top:10px}
+    .hero .badges{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+    .badge{background:var(--gold-100);color:#4a3b10;border:1px solid var(--gold-300);border-radius:999px;padding:6px 10px;font-size:0.92rem;font-weight:600}
+    .hero .art{
+      border-radius:18px;
+      border:1px dashed var(--gold-300);
+      display:flex;align-items:center;justify-content:center;
+      padding:14px;background:#fffef9
+    }
+    .hero .art img{max-width:100%;height:auto;border-radius:12px}
+
+    /* Seções */
+    section{padding:40px 0;border-top:1px solid var(--gray-300)}
+    section:first-of-type{border-top:none}
+    h2{font-family:"Playfair Display", serif;font-size:1.8rem;margin:0 0 10px}
+    .sub{color:var(--gray-600);margin-bottom:18px}
+
+    /* Cards */
+    .grid{display:grid;grid-template-columns:repeat(3, 1fr);gap:18px}
+    .card{
+      border:1px solid var(--gray-300);
+      border-radius:18px;
+      background:var(--white);
+      padding:16px;
+      display:flex;flex-direction:column;gap:10px
+    }
+    .card h3{margin:0;font-size:1.05rem}
+    .card p{margin:0;color:#222}
+    .price{font-weight:700;color:var(--black)}
+    .tag{font-size:0.85rem;color:#4a3b10;background:var(--gold-100);border:1px solid var(--gold-300);padding:4px 8px;border-radius:999px;display:inline-block}
+
+    /* Destaques */
+    .feature{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .feature .box{
+      border:1px solid var(--gold-300);border-radius:18px;padding:18px;background:linear-gradient(180deg, #fff, #fffdf7)
+    }
+
+    /* Tabelas simples */
+    table{width:100%;border-collapse:collapse;border:1px solid var(--gray-300);border-radius:14px;overflow:hidden}
+    th, td{padding:12px;border-bottom:1px solid var(--gray-300);text-align:left}
+    th{background:var(--gold-100);color:#4a3b10}
+    tr:last-child td{border-bottom:none}
+
+    /* Footer */
+    footer{padding:30px 0;border-top:1px solid var(--gray-300);background:#fff}
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:18px}
+    .foot-title{font-weight:700;margin-bottom:8px}
+    .copyright{margin-top:14px;color:var(--gray-600);font-size:0.92rem}
+
+    /* Responsivo */
+    @media (max-width:900px){
+      .hero .panel{grid-template-columns:1fr}
+      .feature{grid-template-columns:1fr}
+      .grid{grid-template-columns:1fr 1fr}
+      .footer-grid{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width:600px){
+      .nav-links{display:none}
+      .grid{grid-template-columns:1fr}
+      .footer-grid{grid-template-columns:1fr}
+      .brand .title{font-size:1.2rem}
+      .hero h1{font-size:2rem}
+    }
+
+    /* Acessibilidade */
+    a:focus, button:focus{outline:2px solid var(--gold);outline-offset:2px}
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <nav aria-label="Navegação principal">
+        <div class="brand">
+          <!-- Substitua o src pela sua logo (ex: img/mr-livre-logo.png). -->
+          <img src="logo-mr-livre.png" alt="Logo MR-Livre em dourado dentro de círculos">
+          <div class="title">MR<span>-Livre</span></div>
+        </div>
+        <div class="nav-links">
+          <a href="#inicio">Início</a>
+          <a href="#essencial">Linha Essencial</a>
+          <a href="#conceito">Linha Conceito</a>
+          <a href="#manifesto">Manifesto</a>
+          <a href="#colecoes">Coleções</a>
+          <a href="#contato">Contato</a>
+        </div>
+        <div class="cta">
+          <button class="btn btn-outline" aria-label="Ver carrinho" onclick="toggleCart()">Carrinho</button>
+          <a href="#app" class="btn btn-solid">Baixar App</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="inicio">
+    <div class="container hero">
+      <div class="panel">
+        <div>
+          <h1>Moda sem rótulos. Liberdade sem limites.</h1>
+          <p>
+            Este é o espaço onde a roupa celebra a pessoa. A MR-Livre nasceu do desejo de empreender com propósito:
+            criar uma marca que respeita identidades, valoriza estilos e convida todo mundo a vestir o que ama.
+            Sem separar por gênero, sem limitar por regras. Apenas você, seu gosto, sua expressão.
+          </p>
+          <div class="badges">
+            <span class="badge">Versatilidade</span>
+            <span class="badge">Autenticidade</span>
+            <span class="badge">Inclusão</span>
+            <span class="badge">Qualidade</span>
+          </div>
+          <div style="margin-top:16px;display:flex;gap:10px">
+            <a class="btn btn-solid" href="#essencial">Explorar Essencial</a>
+            <a class="btn btn-outline" href="#conceito">Explorar Conceito</a>
+          </div>
+        </div>
+        <div class="art" aria-label="Logo destaque">
+          <!-- A arte hero pode reutilizar a logo -->
+          <img src="logo-mr-livre.png" alt="Logo MR-Livre dourada e moderna">
+        </div>
+      </div>
+    </div>
+
+    <section id="manifesto">
+      <div class="container">
+        <h2>Manifesto MR-Livre</h2>
+        <p class="sub">
+          Missão, visão e valores que guiam cada coleção, cada peça e cada conversa com a nossa comunidade.
+        </p>
+
+        <div class="feature">
+          <div class="box">
+            <h3>Missão</h3>
+            <p>
+              Dar liberdade de expressão na moda, vendendo produtos de qualidade que respeitam a identidade de cada cliente.
+              Nossa missão é simples e forte: construir um ambiente seguro e inspirador onde vestir-se é um ato de autonomia e autoestima.
+            </p>
+            <span class="tag">Livre</span>
+          </div>
+
+          <div class="box">
+            <h3>Visão</h3>
+            <p>
+              Ser referência em moda inclusiva, reconhecida pela versatilidade e pelo design atual. Queremos ser
+              lembrados como a marca que transformou a forma de comprar e usar roupas, abrindo espaço para estilos
+              e silhuetas diversas, em um diálogo honesto com o futuro da moda.
+            </p>
+            <span class="tag">Referência</span>
+          </div>
+
+          <div class="box">
+            <h3>Valores</h3>
+            <p>
+              Respeito à diversidade, autenticidade, inclusão e qualidade. Estes pilares norteiam nossas escolhas:
+              da criação ao atendimento, do tecido ao pós-venda. Cada detalhe existe para valorizar quem veste MR-Livre.
+            </p>
+            <span class="tag">Essência</span>
+          </div>
+
+          <div class="box">
+            <h3>Conceito</h3>
+            <p>
+              Moda sem rótulos. Em vez de separar por “masculino” e “feminino”, organizamos por estilo, caimento e ocasião.
+              A curadoria favorece cortes que vestem bem em diferentes corpos, focando conforto, durabilidade e expressão.
+            </p>
+            <span class="tag">Sem rótulos</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="essencial">
+      <div class="container">
+        <h2>Linha Essencial</h2>
+        <p class="sub">
+          Básicos versáteis para o dia a dia: camisetas, jeans e moletons com caimentos pensados para diferentes corpos.
+          Peças atemporais em cores neutras e tecidos confortáveis, sem comprometer estilo.
+        </p>
+
+        <div class="grid" aria-label="Produtos Essencial">
+          <article class="card">
+            <h3>Camiseta Livre 100% algodão</h3>
+            <p>Malha macia, gola reforçada e modelagem fluida que se adapta ao seu estilo.</p>
+            <div class="price">R$ 79,90</div>
+            <span class="tag">Essencial</span>
+            <button class="btn btn-outline" onclick="addToCart('Camiseta Livre 100% algodão')">Adicionar ao carrinho</button>
+          </article>
+
+          <article class="card">
+            <h3>Jeans Versátil corte reto</h3>
+            <p>Lavagem clássica, tecido resistente e conforto para se mover livremente.</p>
+            <div class="price">R$ 189,90</div>
+            <span class="tag">Essencial</span>
+            <button class="btn btn-outline" onclick="addToCart('Jeans Versátil corte reto')">Adicionar ao carrinho</button>
+          </article>
+
+          <article class="card">
+            <h3>Moletom Atemporal</h3>
+            <p>Conforto térmico e toque suave. Ideal para compor camadas sem perder a estética.</p>
+            <div class="price">R$ 159,90</div>
+            <span class="tag">Essencial</span>
+            <button class="btn btn-outline" onclick="addToCart('Moletom Atemporal')">Adicionar ao carrinho</button>
+          </article>
+        </div>
+
+        <div style="margin-top:18px">
+          <blockquote>
+            Dica: combine básicos em texturas diferentes para criar profundidade visual sem complicar o look.
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <section id="conceito">
+      <div class="container">
+        <h2>Linha Conceito</h2>
+        <p class="sub">
+          Design com personalidade, cortes modernos e tecidos mais sofisticados. Peças criadas para quem quer ousar
+          sem abrir mão de conforto e identidade.
+        </p>
+
+        <div class="grid" aria-label="Produtos Conceito">
+          <article class="card">
+            <h3>Camisa Estrutural assimétrica</h3>
+            <p>Recortes arquitetônicos, caimento inteligente e botões invisíveis para um visual clean.</p>
+            <div class="price">R$ 249,90</div>
+            <span class="tag">Conceito</span>
+            <button class="btn btn-outline" onclick="addToCart('Camisa Estrutural assimétrica')">Adicionar ao carrinho</button>
+          </article>
+
+          <article class="card">
+            <h3>Calça Fluida com pregas</h3>
+            <p>Tecido leve e movimento elegante. Ideal para compor looks minimalistas e autorais.</p>
+            <div class="price">R$ 279,90</div>
+            <span class="tag">Conceito</span>
+            <button class="btn btn-outline" onclick="addToCart('Calça Fluida com pregas')">Adicionar ao carrinho</button>
+          </article>
+
+          <article class="card">
+            <h3>Casaco Estrutural com gola ampla</h3>
+            <p>Construção sofisticada e acabamento impecável para destacar sua presença.</p>
+            <div class="price">R$ 399,90</div>
+            <span class="tag">Conceito</span>
+            <button class="btn btn-outline" onclick="addToCart('Casaco Estrutural com gola ampla')">Adicionar ao carrinho</button>
+          </article>
+        </div>
+
+        <div class="feature" style="margin-top:18px">
+          <div class="box">
+            <h3>Organização por estilo</h3>
+            <p>
+              Em vez de separar por gênero, organizamos por cortes, caimentos e ocasiões:
+              cotidiano, trabalho, evento e casual-refinado. Você escolhe o que fala com seu corpo e com sua história.
+            </p>
+          </div>
+          <div class="box">
+            <h3>Materiais e durabilidade</h3>
+            <p>
+              Selecionamos matérias-primas com foco em conforto, resistência e manutenção simples.
+              A longo prazo, sustentabilidade também é sobre criar peças que duram mais no seu guarda-roupa.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="colecoes">
+      <div class="container">
+        <h2>Coleções e curadoria</h2>
+        <p class="sub">
+          Do básico ao elaborado, cada coleção surge de um diálogo entre liberdade e funcionalidade. Curadoria pensada para
+          corpos diversos, sem rótulos e com foco em expressar quem você é.
+        </p>
+
+        <table aria-label="Coleções MR-Livre">
+          <thead>
+            <tr>
+              <th>Coleção</th>
+              <th>Proposta</th>
+              <th>Peças-chave</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Essencial Atemporal</td>
+              <td>Construir a base do guarda-roupa com conforto, qualidade e versatilidade.</td>
+              <td>Camisetas premium, jeans reto, moletom minimalista.</td>
+            </tr>
+            <tr>
+              <td>Conceito Moderno</td>
+              <td>Design autoral com recortes, volumes e texturas sofisticadas.</td>
+              <td>Camisa assimétrica, calça fluida, casaco estrutural.</td>
+            </tr>
+            <tr>
+              <td>Reuso Criativo</td>
+              <td>Aposta na reutilização de materiais e reinterpretação de clássicos.</td>
+              <td>Peças cápsula com upcycling e acabamentos únicos.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="margin-top:18px" class="feature">
+          <div class="box">
+            <h3>Sem gênero, com intenção</h3>
+            <p>
+              As peças são projetadas pensando em proporções e regulagens que ampliam o leque de corpos atendidos:
+              amarrações, elásticos, ajustes de barra e cintura que promovem independência e conforto.
+            </p>
+          </div>
+          <div class="box">
+            <h3>Guia de caimento</h3>
+            <p>
+              Em vez de “M/F”, indicamos informações úteis: medida do ombro, comprimento, amplitude do quadril e
+              referência de fit (solto, regular, estruturado). Você compara com seu corpo e decide.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="marketing">
+      <div class="container">
+        <h2>Marketing e comunidade</h2>
+        <p class="sub">
+          Crescemos no digital com conteúdo útil e colaboração local. A conversa é aberta: liberdade de uso, inspiração e
+          representatividade constroem uma marca que pertence a quem veste.
+        </p>
+
+        <div class="grid">
+          <div class="card">
+            <h3>Conteúdo útil</h3>
+            <p>
+              Vídeos curtos no Instagram e TikTok mostrando combinações criativas, dicas de cuidado com tecido e
+              histórias reais de pessoas que se expressam pela moda sem rótulos.
+            </p>
+            <span class="tag">Social</span>
+          </div>
+          <div class="card">
+            <h3>Parcerias locais</h3>
+            <p>
+              Colab com criadores da região para fortalecer a comunidade e a autenticidade. A voz local aproxima a marca
+              do público e traz relevância cultural.
+            </p>
+            <span class="tag">Colab</span>
+          </div>
+          <div class="card">
+            <h3>Alcance digital</h3>
+            <p>
+              Campanhas com segmentação por interesse e localização. O foco inicial é conversão no site e downloads do app,
+              visando construir recorrência e fidelidade.
+            </p>
+            <span class="tag">Performance</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="app">
+      <div class="container">
+        <h2>App e experiência de compra</h2>
+        <p class="sub">
+          Começamos 100% online: site e aplicativo próprio para compras imediatas. A experiência prioriza clareza, acessibilidade e
+          rapidez, com carrinho simples e atualizações constantes.
+        </p>
+
+        <div class="feature">
+          <div class="box">
+            <h3>Loja virtual</h3>
+            <p>
+              Estruturada para navegar por estilos e tipos de peça. Filtros de caimento e ocasião substituem
+              categorias de gênero, facilitando a escolha livre.
+            </p>
+          </div>
+          <div class="box">
+            <h3>Baixe o aplicativo</h3>
+            <p>
+              Fique por dentro das coleções, promoções e lançamentos. Notificações configuráveis e checkout rápido.
+              Endereço do site/app: www.lojamrlivre.com.br (placeholder).
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="sobre">
+      <div class="container">
+        <h2>Sobre o negócio</h2>
+        <p class="sub">
+          A MR-Livre nasceu do desejo pessoal de empreender na moda com um foco principal: liberdade de escolha.
+          O plano de negócios transformou uma ideia em um caminho concreto, viável e sustentável.
+        </p>
+
+        <div class="grid">
+          <div class="card">
+            <h3>Estrutura e equipe</h3>
+            <p>
+              O negócio começa com Empreendedora Individual: compra de estoque, redes sociais, embalagem e finanças.
+              Com a tração, o primeiro passo é contratar um/uma assistente para vendas e logística.
+            </p>
+            <span class="tag">Crescimento</span>
+          </div>
+          <div class="card">
+            <h3>Investimento inicial</h3>
+            <p>
+              E-commerce reduz o investimento inicial. Os recursos vão para site/app, primeiro estoque e
+              campanhas de marketing digital. A expansão vem depois da validação das vendas online.
+            </p>
+            <span class="tag">E-commerce</span>
+          </div>
+          <div class="card">
+            <h3>Sustentabilidade e lucros</h3>
+            <p>
+              Metas de downloads do app e vendas online financiam a futura loja física. Custos fixos baixos ajudam o
+              negócio a atingir rapidamente o ponto de equilíbrio. Futuras coleções exploram reutilização de materiais.
+            </p>
+            <span class="tag">Sustentável</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contato">
+      <div class="container">
+        <h2>Contato e atendimento</h2>
+        <p class="sub">
+          Dúvidas, trocas e suporte: fale com a MR-Livre. Queremos que sua experiência seja tranquila e transparente.
+        </p>
+
+        <div class="feature">
+          <div class="box">
+            <h3>Fale conosco</h3>
+            <p>
+              E-mail: atendimento@lojamrlivre.com.br (placeholder)<br>
+              Horário: 9h–18h, seg–sex (online).<br>
+              Prazo de resposta: até 24h úteis.
+            </p>
+          </div>
+          <div class="box">
+            <h3>Políticas</h3>
+            <p>
+              Trocas e devoluções com política clara e prazos informados. Transparência no frete, prazos e
+              comunicação de estoque. Atendimento humanizado sempre.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="foot-title">MR-Livre</div>
+          <p>
+            Moda sem rótulos, feita para você vestir com liberdade. Do essencial ao conceito, cada peça
+            valoriza sua identidade e seu conforto.
+          </p>
+        </div>
+        <div>
+          <div class="foot-title">Navegação</div>
+          <p><a href="#inicio">Início</a> • <a href="#essencial">Essencial</a> • <a href="#conceito">Conceito</a></p>
+          <p><a href="#colecoes">Coleções</a> • <a href="#marketing">Marketing</a> • <a href="#app">App</a></p>
+        </div>
+        <div>
+          <div class="foot-title">Redes sociais</div>
+          <p><a href="#" aria-label="Instagram MR-Livre">Instagram</a> • <a href="#" aria-label="TikTok MR-Livre">TikTok</a></p>
+          <p><a href="#" aria-label="YouTube MR-Livre">YouTube</a> • <a href="#" aria-label="Pinterest MR-Livre">Pinterest</a></p>
+        </div>
+      </div>
+      <div class="copyright">© 2025 MR-Livre. Todos os direitos reservados.</div>
+    </div>
+  </footer>
+
+  <!-- Carrinho simples para demonstração -->
+  <div id="cart" aria-live="polite" aria-label="Carrinho de compras" style="position:fixed;right:18px;bottom:18px;max-width:320px;background:#fff;border:1px solid #ead59a;box-shadow:0 8px 24px rgba(0,0,0,0.08);border-radius:18px;padding:14px;display:none;z-index:60">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+      <strong style="font-family:'Playfair Display',serif;color:#4a3b10">Seu carrinho</strong>
+      <button class="btn btn-outline" onclick="toggleCart()">Fechar</button>
+    </div>
+    <ul id="cart-items" style="list-style:none;padding:0;margin:0"></ul>
+    <div id="cart-empty" style="color:#7a7a7a;font-size:0.95rem">Seu carrinho está vazio.</div>
+    <div style="margin-top:10px;display:flex;gap:8px">
+      <button class="btn btn-solid" onclick="checkout()">Finalizar compra</button>
+      <button class="btn btn-outline" onclick="clearCart()">Limpar</button>
+    </div>
+  </div>
+
+  <script>
+    const cart = [];
+    const cartEl = document.getElementById('cart');
+    const cartItemsEl = document.getElementById('cart-items');
+    const cartEmptyEl = document.getElementById('cart-empty');
+
+    function toggleCart(){
+      cartEl.style.display = (cartEl.style.display === 'none' || cartEl.style.display === '') ? 'block' : 'none';
+    }
+
+    function addToCart(item){
+      cart.push({ name:item, qty:1 });
+      renderCart();
+      cartEl.style.display = 'block';
+    }
+
+    function clearCart(){
+      cart.length = 0;
+      renderCart();
+    }
+
+    function renderCart(){
+      cartItemsEl.innerHTML = '';
+      if(cart.length === 0){
+        cartEmptyEl.style.display = 'block';
+        return;
+      }
+      cartEmptyEl.style.display = 'none';
+      cart.forEach((p, idx)=>{
+        const li = document.createElement('li');
+        li.style.padding = '8px 0';
+        li.style.borderBottom = '1px solid #ead59a';
+        li.innerHTML = `
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+            <div>
+              <strong style="color:#4a3b10">${p.name}</strong>
+              <div style="font-size:0.9rem;color:#7a7a7a">Qtd: ${p.qty}</div>
+            </div>
+            <div style="display:flex;gap:6px">
+              <button class="btn btn-outline" aria-label="Adicionar unidade" onclick="inc(${idx})">+</button>
+              <button class="btn btn-outline" aria-label="Remover unidade" onclick="dec(${idx})">-</button>
+              <button class="btn btn-outline" aria-label="Remover item" onclick="removeItem(${idx})">x</button>
+            </div>
+          </div>
+        `;
+        cartItemsEl.appendChild(li);
+      });
+    }
+
+    function inc(i){ cart[i].qty++; renderCart(); }
+    function dec(i){ cart[i].qty = Math.max(1, cart[i].qty-1); renderCart(); }
+    function removeItem(i){ cart.splice(i,1); renderCart(); }
+
+    function checkout(){
+      alert('Checkout de demonstração: em breve, pagamento integrado. Obrigado por escolher a MR-Livre!');
+    }
+  </script>
+</body>
+</html>
 
